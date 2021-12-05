@@ -35,5 +35,39 @@ namespace Tjilp
 		{
 			VM.SaveTjilps();
 		}
+
+		#region Menu MainCommands
+
+		#region Exit command
+
+		private void ExitCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void ExitCommand_Execute(object sender, ExecutedRoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+		#endregion
+
+
+		#region NewTjikp
+
+		private void NewTjilpCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void NewTjilpCommand_Execute(object sender, ExecutedRoutedEventArgs e)
+		{
+			VM.OpenTjilp(null);
+		}
+
+		#endregion
+
+		#endregion
+
 	}
 }

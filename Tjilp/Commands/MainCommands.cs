@@ -16,5 +16,16 @@ namespace Tjilp.Commands
 				}
 			);
 
+		public static readonly RoutedUICommand NewTjilp = new RoutedUICommand
+			(
+				"New _Tjilp",
+				"NewTjilp",
+				typeof(MainCommands),
+				new InputGestureCollection()
+				{
+					new KeyGesture(Key.N, ModifierKeys.Control),
+				}
+			);
+
 	}
 }

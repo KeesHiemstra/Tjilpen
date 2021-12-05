@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using Tjilp.Extentions;
 using Tjilp.Models;
+using Tjilp.Views;
 
 namespace Tjilp.ModelViews
 {
@@ -45,6 +46,17 @@ namespace Tjilp.ModelViews
 				stream.Write(json);
 			}
 
+		}
+
+		internal void OpenTjilp(TjilpRecord tjilpRecord)
+		{
+			if (tjilpRecord == null)
+			{
+				tjilpRecord = new TjilpRecord();
+			}
+
+			TjilpWindow window = new TjilpWindow(this, tjilpRecord);
+			window.Show();
 		}
 
 	}

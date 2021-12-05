@@ -3,13 +3,48 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Tjilp.Commands"
         xmlns:local="clr-namespace:Tjilp"
         mc:Ignorable="d"
         Closing="Window_Closing"
         Title="Tjilpen"
         Height="450"
         Width="800">
-  <Grid>
 
+  <Window.CommandBindings>
+    <CommandBinding
+      CanExecute="ExitCommand_CanExecute"
+      Command="cmd:MainCommands.Exit"
+      Executed="ExitCommand_Execute" />
+    <CommandBinding
+      CanExecute="NewTjilpCommand_CanExecute"
+      Command="cmd:MainCommands.NewTjilp"
+      Executed="NewTjilpCommand_Execute"/>
+  </Window.CommandBindings>
+
+  <Grid Margin="5">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Menu
+      Name="MainMenu"
+      Grid.Row="0"
+      Margin="-5 -5 -5 5">
+      <MenuItem Header="_File">
+        <Separator />
+        <MenuItem Command="cmd:MainCommands.Exit" />
+      </MenuItem>
+      <MenuItem Header="_Tjilps">
+        <MenuItem Command="cmd:MainCommands.NewTjilp" />
+      </MenuItem>
+    </Menu>
+
+
+    
   </Grid>
 </Window>
