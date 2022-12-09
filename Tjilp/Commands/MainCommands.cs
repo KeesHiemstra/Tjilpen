@@ -27,5 +27,16 @@ namespace Tjilp.Commands
 				}
 			);
 
+		public static readonly RoutedUICommand Open = new RoutedUICommand
+			(
+				"_Open",
+				"Open",
+				typeof(MainCommands),
+				new InputGestureCollection()
+				{
+					new KeyGesture(Key.O, ModifierKeys.Control),
+				}
+			);
+
 	}
 }

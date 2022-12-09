@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:Tjilp.Commands"
-        xmlns:local="clr-namespace:Tjilp.Views"
+        xmlns:local="clr-namespace:Tjilp.Views" 
+        xmlns:models="clr-namespace:Tjilp.Models" d:DataContext="{d:DesignInstance Type=models:TjilpRecord}"
         mc:Ignorable="d"
-        Title="TjilpWindow"
+        Title="Tjilp"
         Height="250" 
         Width="300">
 
@@ -31,10 +32,11 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
     <Menu      
-      Grid.Row="0"
+      Grid.ColumnSpan="2"
       Margin="-5 -5 -5 5">
       <MenuItem Header="_Tjilp">
         <MenuItem Command="cmd:TjilpCommands.SaveAndClose" />
@@ -51,7 +53,40 @@
       Language="NL-nl"
       AcceptsReturn="True"
       TextWrapping="WrapWithOverflow"
-      Margin="0 0 0 2" />
+      Margin="0 0 0 2" 
+      TextChanged="MessageTextBox_TextChanged"/>
+
+    <StackPanel
+      x:Name="ButtonsStackPanel"
+      Orientation="Horizontal"
+      Grid.Row="3">
+
+      <Button
+        Content="_Save"
+        Height="21"
+        Width="75"
+        HorizontalAlignment="Left"
+        Command="cmd:TjilpCommands.SaveAndClose"
+        Margin="0, 0, 5, 0"/>
+
+      <Button
+        Content="_Cancel"
+        Height="21"
+        Width="75"
+        HorizontalAlignment="Left"
+        Command="cmd:TjilpCommands.Close"/>
+
+    </StackPanel>
+
+    <StatusBar
+      Grid.Row="4"
+      Grid.ColumnSpan="2">
+      <StatusBarItem>
+        <TextBlock 
+          Text="*" 
+          Visibility="Hidden" />
+      </StatusBarItem>
+    </StatusBar>
 
   </Grid>
 </Window>

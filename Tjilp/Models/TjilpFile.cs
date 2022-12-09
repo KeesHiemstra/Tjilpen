@@ -12,5 +12,21 @@ namespace Tjilp.Models
 		public ObservableCollection<TjilpRecord> Tjilps { get; set; } = 
 			new ObservableCollection<TjilpRecord>();
 		public string[] Subjects { get; set; }
+		public int LastId { get; set; }
+
+		public TjilpFile()
+		{
+
+		}
+
+		public void UpdateLastId()
+		{
+			int lastId = Tjilps.Max(x => x.Id);
+			if (lastId > LastId)
+			{
+				LastId = lastId;
+			}
+			TjilpRecord.UpdateLastId(LastId);
+		}
 	}
 }

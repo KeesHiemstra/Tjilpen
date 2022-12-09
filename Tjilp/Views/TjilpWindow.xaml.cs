@@ -22,39 +22,52 @@ namespace Tjilp.Views
 	/// </summary>
 	public partial class TjilpWindow : Window
 	{
-		private bool newRecord = false;
+		private readonly bool newRecord = false;
 
 		internal MainViewModel VM { get; set; }
-		internal TjilpRecord TjilpRecord { get; set; }
+		internal TjilpRecord Tjilp { get; set; }
 
-		internal TjilpWindow(MainViewModel vm, TjilpRecord tjilpRecord)
+		internal TjilpWindow(MainViewModel vm, TjilpRecord tjilp)
 		{
 			VM = vm;
-			TjilpRecord = tjilpRecord;
-			if (TjilpRecord == null)
+			Tjilp = tjilp;
+			if (Tjilp == null)
 			{
 				newRecord = true;
-				TjilpRecord = new TjilpRecord();
+				Tjilp = new TjilpRecord();
 			}
 
 			InitializeComponent();
 
-			DataContext = this;
+			DataContext = Tjilp;
+			MessageTextBox.Focus();
 		}
+
+		#region Menu TjilpCommands
+
+		#region SaveAndClose command
 
 		private void SaveAndCloseCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			e.CanExecute = !string.IsNullOrEmpty(TjilpRecord.Message);
+			e.CanExecute = true;
 		}
 
 		private void SaveAndCloseCommand_Execute(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (newRecord)
 			{
-				VM.Tjilps.Tjilps.Add(TjilpRecord);
+				VM.Tjilps.Tjilps.Add(Tjilp.Update());
+			}
+			else
+			{
+				Tjilp.Update();
 			}
 			Close();
 		}
+
+		#endregion
+
+		#region Close command
 
 		private void CloseCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
@@ -66,5 +79,13 @@ namespace Tjilp.Views
 			Close();
 		}
 
+		#endregion
+
+		#endregion
+
+		private void MessageTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			Tjilp.IsUpdated = true;
+		}
 	}
 }

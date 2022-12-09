@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+
+using System;
 using System.ComponentModel;
 
 namespace Tjilp.Models
 {
 	internal class TjilpRecord : INotifyPropertyChanged
 	{
+		private static int lastId;
+
 		private int id;
 		private string message;
 		private string[] subjects;
@@ -121,8 +125,15 @@ namespace Tjilp.Models
 		}
 
 		/// <summary>
+		/// True it the Message, Subject or ReferenceTo is changed.
+		/// </summary>
+		[JsonIgnore]
+		public bool IsUpdated { get; set; }
+
+		/// <summary>
 		/// This tjip is deleted if the date/time not null is.
 		/// </summary>
+		[JsonIgnore]
 		public bool Deleted
 		{
 			get => deletionDate.HasValue;
@@ -133,8 +144,10 @@ namespace Tjilp.Models
 		/// </summary>
 		public TjilpRecord()
 		{
-			Id++;
-			CreationDate = DateTime.Now;
+			if (CreationDate == new DateTime(1, 1, 1))
+			{
+				CreationDate = DateTime.Now;
+			}
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -146,11 +159,23 @@ namespace Tjilp.Models
 		/// <summary>
 		/// Save the data and update the record.
 		/// </summary>
-		public void Update()
+		public TjilpRecord Update()
 		{
+			if (Id == 0)
+			{
+				Id = ++lastId;
+			}
+			else
+			{
+				if (Id > lastId)
+				{
+					lastId = Id;
+				}
+			}
 			mutationDate = DateTime.Now;
+			return this;
 		}
-		
+
 		/// <summary>
 		/// Mark this tjip as deleted.
 		/// The DeletionDate is not <see langword="null"/>.
@@ -176,5 +201,10 @@ namespace Tjilp.Models
 			}
 		}
 
+		public static void UpdateLastId(int _lastId)
+		{
+			lastId = _lastId;
+		}
+		
 	}
 }

@@ -28,6 +28,7 @@ namespace Tjilp.Commands
 				new InputGestureCollection()
 				{
 					new KeyGesture(Key.Escape),
+					new KeyGesture(Key.W, ModifierKeys.Control),
 				}
 			);
 
